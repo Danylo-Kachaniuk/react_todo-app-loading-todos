@@ -13,7 +13,7 @@ export const ErrorNotification: React.FC<Props> = ({ isError, onClose }) => {
       data-cy="ErrorNotification"
       className={classNames(
         'notification is-danger is-light has-text-weight-normal',
-        { hidden: isError },
+        { hidden: isError === null },
       )}
     >
       {/* DON'T use conditional rendering to hide the notification */}
