@@ -16,6 +16,8 @@ export const TodoFooter: React.FC<Props> = ({
   setFilter,
   onClear,
 }) => {
+  const completedTodos = todos.filter(todo => todo.completed);
+
   return (
     <footer className="todoapp__footer" data-cy="Footer">
       {/* Hide the footer if there are no todos */}
@@ -65,6 +67,7 @@ export const TodoFooter: React.FC<Props> = ({
         className="todoapp__clear-completed"
         data-cy="ClearCompletedButton"
         onClick={onClear}
+        disabled={completedTodos.length === 0}
       >
         Clear completed
       </button>

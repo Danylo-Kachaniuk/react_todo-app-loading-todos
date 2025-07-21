@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
+import { ErrorMessage } from '../../types/ErrorMessage';
 
 type Props = {
-  isError: string;
+  isError: ErrorMessage | null;
   onClose: () => void;
 };
 
@@ -12,7 +13,7 @@ export const ErrorNotification: React.FC<Props> = ({ isError, onClose }) => {
       data-cy="ErrorNotification"
       className={classNames(
         'notification is-danger is-light has-text-weight-normal',
-        { hidden: isError.length === 0 },
+        { hidden: isError },
       )}
     >
       {/* DON'T use conditional rendering to hide the notification */}
@@ -23,15 +24,6 @@ export const ErrorNotification: React.FC<Props> = ({ isError, onClose }) => {
         className="delete"
         onClick={onClose}
       />
-      {/* show only one message at a time
-      <br />
-      Title should not be empty
-      <br />
-      Unable to add a todo
-      <br />
-      Unable to delete a todo
-      <br />
-      Unable to update a todo*/}
       {isError}
     </div>
   );

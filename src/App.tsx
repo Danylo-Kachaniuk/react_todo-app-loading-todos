@@ -9,10 +9,11 @@ import { TodoFooter } from './components/TodoFooter/';
 import { ErrorNotification } from './components/ErrorNotification';
 import { Todo } from './types/Todo';
 import { FilterType } from './types/FilterType';
+import { ErrorMessage } from './types/ErrorMessage';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [isError, setIsError] = useState('');
+  const [error, setError] = useState<ErrorMessage | null>(null);
   const [loading, setLoading] = useState(false);
   const [filtering, setFiltering] = useState<FilterType>('all');
 
@@ -25,7 +26,7 @@ export const App: React.FC = () => {
   };
 
   const handleRemoveError = () => {
-    setIsError('');
+    setError(null);
   };
 
   useEffect(() => {
@@ -33,26 +34,26 @@ export const App: React.FC = () => {
       return;
     }
 
-    setIsError('');
+    setError(null);
     setLoading(true);
 
     getTodos()
       .then(setTodos)
-      .catch(() => setIsError('Unable to load todos'))
+      .catch(() => setError(ErrorMessage.LoadTodos))
       .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
-    if (!isError) {
+    if (!error) {
       return;
     }
 
     const timer = setTimeout(() => {
-      setIsError('');
+      setError(null);
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [isError]);
+  }, [error]);
 
   if (!USER_ID) {
     return <UserWarning />;
@@ -74,7 +75,7 @@ export const App: React.FC = () => {
           />
         )}
       </div>
-      <ErrorNotification isError={isError} onClose={handleRemoveError} />
+      <ErrorNotification isError={error} onClose={handleRemoveError} />
     </div>
   );
 };
