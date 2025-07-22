@@ -22,7 +22,7 @@ export const TodoItem: React.FC<Props> = ({ todo, isLoader }) => {
           data-cy="TodoStatus"
           type="checkbox"
           className="todo__status"
-          checked={todo.completed}
+          checked={completed}
         />
       </label>
 

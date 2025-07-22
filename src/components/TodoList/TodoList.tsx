@@ -11,11 +11,11 @@ type Props = {
 
 function filterTodo(todos: Todo[], filterBy: FilterType) {
   switch (filterBy) {
-    case 'all':
+    case FilterType.all:
       return todos;
-    case 'completed':
+    case FilterType.completed:
       return todos.filter(todo => todo.completed);
-    case 'active':
+    case FilterType.active:
       return todos.filter(todo => !todo.completed);
   }
 }
